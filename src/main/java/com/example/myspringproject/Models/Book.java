@@ -1,7 +1,6 @@
 package com.example.myspringproject.Models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,11 +35,9 @@ public class Book {
     @Temporal(TemporalType.DATE)
     private Date updated_at = new Date();
 
-    @ManyToMany(mappedBy = "booksList")
+    @ManyToMany
+    @JoinTable(name="booksList",
+            joinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genresList = new ArrayList<>();
-
-    public void addGenre(Genre genre) {
-        genresList.add(genre);
-    }
 
 }

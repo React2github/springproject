@@ -4,7 +4,6 @@ import com.example.myspringproject.Models.Book;
 import com.example.myspringproject.Services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +16,11 @@ public class BookController {
     BookService bookService;
 
     @PostMapping("/books")
-    public ResponseEntity<Book> createBook(@Validated @RequestBody Book book) {
+    public ResponseEntity<Book> createBook( @RequestBody Book book) {
         Book newBook =  bookService.createBook(book);
         return ResponseEntity.ok(newBook);
     }
+
 
     @GetMapping("/books")
     public List<Book> readBooks() {

@@ -4,6 +4,7 @@ package com.example.myspringproject.Controllers;
 
 import com.example.myspringproject.Models.Book;
 import com.example.myspringproject.Models.Genre;
+import com.example.myspringproject.Services.BookService;
 import com.example.myspringproject.Services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ public class GenreController {
     @Autowired
     GenreService genreService;
 
+    @Autowired
+    BookService bookService;
 
     @GetMapping("/genres")
     public List<Genre> readGenres() {
@@ -45,6 +48,14 @@ public class GenreController {
         Genre newGenre =  genreService.createGenre(genre);
         return ResponseEntity.ok(newGenre);
     }
+
+    @PostMapping("/genres/{Id}/books")
+    public ResponseEntity<Book> createBooksList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody Book book) {
+        Book newBook =  bookService.createBook(book);
+        newBook.setGenresList((List<Genre>) genreService.getGenre(id));
+        return ResponseEntity.ok(newBook);
+    }
+
 
 }
 

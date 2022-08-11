@@ -23,7 +23,4 @@ public class Genre {
     @ManyToMany
     private List<Book> booksList = new ArrayList<>();
 
-    public void addBook(Book book) {
-        booksList.add(book);
-    }
 }

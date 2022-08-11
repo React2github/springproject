@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name="Users_Table")
 
@@ -22,5 +23,7 @@ public class LibraryUser {
     @NotNull
     private String password;
 
+    @OneToMany
+    private List<ReadingList> readingList;
 
 }
