@@ -21,12 +21,9 @@ public class ReadingListController {
     UsersService usersService;
 
     @PostMapping("/users/{Id}/reading_lists")
-    public ResponseEntity<ReadingList> createReadingList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody ReadingList readingList) {
-        ReadingList libraryUsersDTO = readingListService.createReadingList(readingList);
-
-//        ReadingList readingList1 =  readingListService.createReadingList(readingListDTO);
-//        readingListDTO.setLibraryUser(usersService.getUser(id));
-        return ResponseEntity.ok(libraryUsersDTO);
+    public ResponseEntity<CreateReadingListDTO> createReadingList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody CreateReadingListDTO createReadingListDTO) {
+        CreateReadingListDTO readingListDTO = readingListService.createReadingList(createReadingListDTO, id);
+        return ResponseEntity.ok(readingListDTO);
     }
 
     @GetMapping("/users/{Id}/reading_lists")

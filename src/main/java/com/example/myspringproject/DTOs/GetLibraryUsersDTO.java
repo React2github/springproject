@@ -9,8 +9,9 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
+//@Getter
+//@Setter
 public class GetLibraryUsersDTO {
     private int id;
     private String username;

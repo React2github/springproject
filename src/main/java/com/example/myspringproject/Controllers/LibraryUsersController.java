@@ -26,13 +26,12 @@ public class LibraryUsersController {
 
     @GetMapping("/users")
     public List<GetLibraryUsersDTO> readUsers() {
-
         return usersService.getUsers();
     }
 
     @GetMapping("/users/{Id}")
-    public GetLibraryUsersDTO readUser(@PathVariable(value = "Id") Integer id) {
-        GetLibraryUsersDTO libraryUsersDTO = usersService.getUser(id);
+    public LibraryUser readUser(@PathVariable(value = "Id") Integer id) {
+        LibraryUser libraryUsersDTO = usersService.getUser(id);
         return libraryUsersDTO;
     }
 

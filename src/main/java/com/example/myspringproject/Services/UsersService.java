@@ -37,25 +37,15 @@ public class UsersService {
         return usersRepository.findAll().stream().map(libraryUser -> mapper.map(libraryUser, GetLibraryUsersDTO.class)).collect(Collectors.toList());
     }
 
-    public GetLibraryUsersDTO getUser(Integer id) {
+    public LibraryUser getUser(Integer id) {
         Optional<LibraryUser> optionalUser = usersRepository.findById(id);
 //                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND), "Camper not Found");
         if (!optionalUser.isPresent())  {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not Found");
         }
         LibraryUser user = optionalUser.get();
-        GetLibraryUsersDTO userDTO = mapper.map(user, GetLibraryUsersDTO.class);
-        List<ReadingList> readingLists = user.getReadingList();
-//        List<Activity> activities = new ArrayList<>();
-//        for (Signup signup : signups) {
-//            Activity activity = signup.getActivity();
-//            activities.add(activity);
-//        }
-//        for(int i = 0; i < activities.size(); i++) {
-//            GetActivitiesDTO activityDTO = mapper.map(activities.get(i), GetActivitiesDTO.class);
-//            camperDTO.addActivityDTO(activityDTO);
-//        }
-        return userDTO;
+
+        return user;
     }
 //        return usersRepository.findById(id).get();
 //    }

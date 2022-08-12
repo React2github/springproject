@@ -7,6 +7,7 @@ import com.example.myspringproject.Models.LibraryUser;
 import com.example.myspringproject.Models.ReadingList;
 import com.example.myspringproject.repository.ReadingListRepository;
 import com.example.myspringproject.repository.UsersRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,13 @@ public class ReadingListService {
     @Autowired
     UsersRepository usersRepository;
 
-    public ReadingList createReadingList(ReadingList readingList) {
-        return readingListRepository.save(readingList);
+    @Autowired
+    ModelMapper mapper;
+
+    public CreateReadingListDTO createReadingList(CreateReadingListDTO createReadingListDTO, Integer user_id) {
+        ReadingList readingList = mapper.map(createReadingListDTO, ReadingList.class);
+        readingList.setLibraryUser(usersRepository.getReferenceById(user_id));
+        return mapper.map(readingList, CreateReadingListDTO.class);
     }
 
     public List<ReadingList> getUsers() {
