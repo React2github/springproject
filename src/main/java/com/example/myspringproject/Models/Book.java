@@ -35,9 +35,7 @@ public class Book {
     @Temporal(TemporalType.DATE)
     private Date updated_at = new Date();
 
-    @ManyToMany
-    @JoinTable(name="booksList",
-            joinColumns = @JoinColumn(name = "genre_id"))
-    private List<Genre> genresList = new ArrayList<>();
+    @ManyToOne
+    private Genre genresList = new Genre();
 
 }

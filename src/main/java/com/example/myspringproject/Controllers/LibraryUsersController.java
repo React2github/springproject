@@ -1,6 +1,8 @@
 package com.example.myspringproject.Controllers;
 
 
+import com.example.myspringproject.DTOs.CreateLibrayUsersDTO;
+import com.example.myspringproject.DTOs.GetLibraryUsersDTO;
 import com.example.myspringproject.Models.LibraryUser;
 import com.example.myspringproject.Services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +19,21 @@ public class LibraryUsersController {
     UsersService usersService;
 
     @PostMapping("/users")
-    public ResponseEntity<LibraryUser> createBook(@Validated @RequestBody LibraryUser libraryUser) {
-        LibraryUser newUser =  usersService.createUser(libraryUser);
-        return ResponseEntity.ok(newUser);
+    public ResponseEntity<GetLibraryUsersDTO> createUser (@Validated @RequestBody CreateLibrayUsersDTO libraryUserDTO) {
+        GetLibraryUsersDTO usersDTO =  usersService.createUser(libraryUserDTO);
+        return ResponseEntity.ok(usersDTO);
     }
 
     @GetMapping("/users")
-    public List<LibraryUser> readUsers() {
+    public List<GetLibraryUsersDTO> readUsers() {
+
         return usersService.getUsers();
     }
 
     @GetMapping("/users/{Id}")
-    public LibraryUser readUser(@PathVariable(value = "Id") Integer id) {
-        return usersService.getUser(id);
+    public GetLibraryUsersDTO readUser(@PathVariable(value = "Id") Integer id) {
+        GetLibraryUsersDTO libraryUsersDTO = usersService.getUser(id);
+        return libraryUsersDTO;
     }
 
 

@@ -20,7 +20,7 @@ public class Genre {
     @NotNull
     private String name;
 
-    @ManyToMany
+    @OneToMany
     private List<Book> booksList = new ArrayList<>();
 
 }

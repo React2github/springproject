@@ -20,11 +20,9 @@ public class ReadingList {
     private String name;
 
     @ManyToOne
+//    @JoinColumn(name = "LIBRARY_USER_ID", insertable = false, updatable = false)
     private LibraryUser libraryUser;
 
-    @ManyToMany
-    @JoinTable(name="ReadingLists",
-            joinColumns = @JoinColumn(name = "username"),
-            inverseJoinColumns = @JoinColumn(name = "book_title"))
-    private List<Book> bookList;
+//    @ManyToMany
+//    private List<Book> bookList;
 }

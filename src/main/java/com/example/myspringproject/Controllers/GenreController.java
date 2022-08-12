@@ -52,7 +52,7 @@ public class GenreController {
     @PostMapping("/genres/{Id}/books")
     public ResponseEntity<Book> createBooksList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody Book book) {
         Book newBook =  bookService.createBook(book);
-        newBook.setGenresList((List<Genre>) genreService.getGenre(id));
+        newBook.setGenresList(genreService.getGenre(id));
         return ResponseEntity.ok(newBook);
     }
 
