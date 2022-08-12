@@ -1,11 +1,9 @@
 package com.example.myspringproject.DTOs;
 
-
 import com.example.myspringproject.Models.ReadingList;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +11,11 @@ import java.util.List;
 @Data
 //@Getter
 //@Setter
-public class GetLibraryUsersDTO {
-    private int id;
-    private String username;
-    private String password;
+public class GetReadingListDTO {
 
-    @JsonIgnore
-    private List<CreateReadingListDTO> readingListDTOS;
+    private String name;
+    private List <String> book_titles;
+
 //
 //    public void addActivityDTO(GetReadingListDTO readingListDTO){
 //        this.readingList.add(readingListDTO);

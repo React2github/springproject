@@ -21,7 +21,7 @@ public class Book {
     @GeneratedValue
     private int id;
 
-    @NotNull
+//    @NotNull
     private String name;
 
     private int pages;

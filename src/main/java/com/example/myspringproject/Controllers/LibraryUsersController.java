@@ -3,7 +3,6 @@ package com.example.myspringproject.Controllers;
 
 import com.example.myspringproject.DTOs.CreateLibrayUsersDTO;
 import com.example.myspringproject.DTOs.GetLibraryUsersDTO;
-import com.example.myspringproject.Models.LibraryUser;
 import com.example.myspringproject.Services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -30,8 +30,8 @@ public class LibraryUsersController {
     }
 
     @GetMapping("/users/{Id}")
-    public LibraryUser readUser(@PathVariable(value = "Id") Integer id) {
-        LibraryUser libraryUsersDTO = usersService.getUser(id);
+    public Optional<GetLibraryUsersDTO> readUser(@PathVariable(value = "Id") Integer id) {
+        Optional<GetLibraryUsersDTO> libraryUsersDTO = usersService.getUser(id);
         return libraryUsersDTO;
     }
 
