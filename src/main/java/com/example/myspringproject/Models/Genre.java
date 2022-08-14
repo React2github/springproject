@@ -1,5 +1,6 @@
 package com.example.myspringproject.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,9 @@ public class Genre {
     @NotNull
     private String name;
 
-    @OneToMany
-    private List<Book> booksList = new ArrayList<>();
+    // One genre many books
+    @JsonIgnore
+    @OneToMany(mappedBy = "genre")
+    private List<Book> books = new ArrayList<>();
 
 }

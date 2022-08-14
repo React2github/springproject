@@ -1,14 +1,13 @@
 package com.example.myspringproject.Models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 
 
 @Table(name="Books_Table")
@@ -35,7 +34,10 @@ public class Book {
     @Temporal(TemporalType.DATE)
     private Date updated_at = new Date();
 
+    // Many books to one genre
+
+    @JsonIgnore
     @ManyToOne
-    private Genre genresList = new Genre();
+    private Genre genre;
 
 }

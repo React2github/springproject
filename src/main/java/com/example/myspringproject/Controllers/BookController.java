@@ -1,9 +1,12 @@
 package com.example.myspringproject.Controllers;
 
+import com.example.myspringproject.DTOs.CreateBooksDTO;
+import com.example.myspringproject.DTOs.CreateGenresDTO;
 import com.example.myspringproject.Models.Book;
 import com.example.myspringproject.Services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +17,14 @@ import java.util.List;
 public class BookController {
     @Autowired
     BookService bookService;
+
+
+
+    @PostMapping("/genres/{Id}/books")
+    public ResponseEntity<CreateBooksDTO> createBooksList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody CreateBooksDTO createBooksDTO) {
+        CreateBooksDTO booksDTO = bookService.createBooksToGenre(createBooksDTO, id);
+        return ResponseEntity.ok(booksDTO);
+    }
 
     @PostMapping("/books")
     public ResponseEntity<Book> createBook( @RequestBody Book book) {
@@ -26,6 +37,7 @@ public class BookController {
     public List<Book> readBooks() {
         return bookService.getBooks();
     }
+
 
     @GetMapping("/books/{Id}")
     public Book readBook(@PathVariable(value = "Id") Integer id) {

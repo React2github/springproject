@@ -2,6 +2,8 @@ package com.example.myspringproject.Controllers;
 
 
 
+import com.example.myspringproject.DTOs.CreateBooksDTO;
+import com.example.myspringproject.DTOs.CreateGenresDTO;
 import com.example.myspringproject.Models.Book;
 import com.example.myspringproject.Models.Genre;
 import com.example.myspringproject.Services.BookService;
@@ -23,6 +25,7 @@ public class GenreController {
     @Autowired
     BookService bookService;
 
+
     @GetMapping("/genres")
     public List<Genre> readGenres() {
         return genreService.getGenres();
@@ -35,7 +38,7 @@ public class GenreController {
 
     @GetMapping("/genres/{Id}/books")
     public List<Book> readBooks(@PathVariable(value = "Id") Integer id) {
-        return genreService.getGenre(id).getBooksList();
+        return genreService.getGenre(id).getBooks();
     }
 
     @PutMapping("/genres/{Id}")
@@ -44,17 +47,12 @@ public class GenreController {
     }
 
     @PostMapping("/genres")
-    public ResponseEntity<Genre> createGenre(@Validated @RequestBody Genre genre) {
+    public ResponseEntity<Genre> createGenre( @RequestBody Genre genre) {
         Genre newGenre =  genreService.createGenre(genre);
         return ResponseEntity.ok(newGenre);
     }
 
-    @PostMapping("/genres/{Id}/books")
-    public ResponseEntity<Book> createBooksList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody Book book) {
-        Book newBook =  bookService.createBook(book);
-        newBook.setGenresList(genreService.getGenre(id));
-        return ResponseEntity.ok(newBook);
-    }
+
 
 
 }

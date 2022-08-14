@@ -1,8 +1,14 @@
 package com.example.myspringproject.Services;
 
 
+import com.example.myspringproject.DTOs.CreateBooksDTO;
+import com.example.myspringproject.DTOs.CreateGenresDTO;
+import com.example.myspringproject.DTOs.GetLibraryUsersDTO;
+import com.example.myspringproject.Models.Book;
 import com.example.myspringproject.Models.Genre;
+import com.example.myspringproject.repository.BookRepository;
 import com.example.myspringproject.repository.GenreRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +21,13 @@ public class GenreService {
     @Autowired
     GenreRepository genreRepository;
 
-    public Genre createGenre(Genre genre) {
-        return genreRepository.save(genre);
-    }
+
+    @Autowired
+    BookRepository bookRepository;
+
+
+
+
 
     public List<Genre> getGenres() {
         return genreRepository.findAll();
@@ -33,4 +43,7 @@ public class GenreService {
         return genreRepository.save(genre);
     }
 
+    public Genre createGenre(Genre genre) {
+        return genreRepository.save(genre);
+    }
 }
