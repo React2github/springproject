@@ -28,7 +28,7 @@ public class BookController {
         return ResponseEntity.ok(booksDTO);}
 
 
-    @PostMapping("/genres/{Id}/books")
+    @PostMapping("/genre/{Id}/books")
     public ResponseEntity<CreateBooksDTO> createBooksList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody CreateBooksDTO createBooksDTO) {
         CreateBooksDTO booksDTO = bookService.createBooksToGenre(createBooksDTO, id);
         return ResponseEntity.ok(booksDTO);

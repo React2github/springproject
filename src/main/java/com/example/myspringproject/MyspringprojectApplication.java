@@ -14,7 +14,7 @@ import java.util.List;
 @SpringBootApplication
 public class MyspringprojectApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		SpringApplication.run(MyspringprojectApplication.class, args);
 	}
 

@@ -26,27 +26,41 @@ public class GenreController {
     BookService bookService;
 
 
-    @GetMapping("/genres")
+    @GetMapping("/genre")
     public List<Genre> readGenres() {
         return genreService.getGenres();
     }
 
-    @GetMapping("/genres/{Id}")
-    public Genre readGenre(@PathVariable(value = "Id") Integer id) {
-        return genreService.getGenre(id);
+    @GetMapping("/genre/{Id}")
+    public Genre readGenre(@PathVariable(value = "Id") Integer id) throws UserNotFoundException {
+        if (genreService.getGenre(id) == null) {
+            throw new UserNotFoundException("There is no genre with id: " + id);
+        } else {
+            return genreService.getGenre(id);
+        }
     }
 
-    @GetMapping("/genres/{Id}/books")
-    public List<Book> readBooks(@PathVariable(value = "Id") Integer id) {
-        return genreService.getGenre(id).getBooks();
+    @GetMapping("/genre/{Id}/books")
+    public List<Book> readBooks(@PathVariable(value = "Id") Integer id) throws UserNotFoundException {
+        if (genreService.getGenre(id) == null) {
+            throw new UserNotFoundException("There is no genre with id: " + id);
+        } else {
+            return genreService.getGenre(id).getBooks();
+        }
+
     }
 
-    @PutMapping("/genres/{Id}")
-    public Genre updateGenre(@PathVariable(value = "Id") Integer id, @RequestBody Genre genreData) {
-        return genreService.updateGenre(id, genreData);
+
+    @PutMapping("/genre/{Id}")
+    public Genre updateGenre(@PathVariable(value = "Id") Integer id, @RequestBody Genre genreData) throws UserNotFoundException {
+        if (genreService.getGenre(id) == null) {
+            throw new UserNotFoundException("There is no genre with id: " + id);
+        } else {
+            return genreService.updateGenre(id, genreData);
+        }
     }
 
-    @PostMapping("/genres")
+    @PostMapping("/genre")
     public ResponseEntity<Genre> createGenre( @RequestBody Genre genre) {
         Genre newGenre =  genreService.createGenre(genre);
         return ResponseEntity.ok(newGenre);
