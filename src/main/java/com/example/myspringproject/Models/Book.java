@@ -40,4 +40,7 @@ public class Book {
     @ManyToOne
     private Genre genre;
 
+    @ManyToOne
+    private ReadingList readingList;
+
 }

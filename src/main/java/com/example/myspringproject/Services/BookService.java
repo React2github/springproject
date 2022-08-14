@@ -8,6 +8,8 @@ import com.example.myspringproject.Models.Genre;
 import com.example.myspringproject.Models.ReadingList;
 import com.example.myspringproject.repository.BookRepository;
 import com.example.myspringproject.repository.GenreRepository;
+import com.example.myspringproject.repository.ReadingListRepository;
+import com.example.myspringproject.repository.UsersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,12 @@ public class BookService {
 
     @Autowired
     GenreRepository genreRepository;
+
+    @Autowired
+    UsersRepository usersRepository;
+
+    @Autowired
+    ReadingListRepository readingListRepository;
 
     @Autowired
     ModelMapper mapper;
@@ -57,5 +65,12 @@ public class BookService {
 
     public void deleteBook(Integer id) {
         bookRepository.deleteById(id);
+    }
+
+    public CreateBooksDTO createBooksToReadingList(CreateBooksDTO createBooksDTO, Integer readingList_id) {
+        Book newBook = mapper.map(createBooksDTO, Book.class);
+        newBook.setReadingList(readingListRepository.getReferenceById(readingList_id));
+        bookRepository.save(newBook);
+        return mapper.map(newBook, CreateBooksDTO.class);
     }
 }

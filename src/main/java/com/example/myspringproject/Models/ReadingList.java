@@ -7,6 +7,7 @@ import lombok.Setter;
 import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,6 +27,9 @@ public class ReadingList {
     @ManyToOne
 //    @JoinColumn(name = "LIBRARY_USER_ID", insertable = false, updatable = false)
     private LibraryUser libraryUser;
+
+    @OneToMany(mappedBy = "readingList", cascade = CascadeType.ALL)
+    private List<Book> books = new ArrayList<>();
 
 //    @ManyToMany
 //    private List<Book> bookList;

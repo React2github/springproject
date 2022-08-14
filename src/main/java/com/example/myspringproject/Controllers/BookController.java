@@ -18,6 +18,15 @@ public class BookController {
     @Autowired
     BookService bookService;
 
+    @GetMapping("/users/{Id}/reading_lists/{Id2}/books")
+    public List<Book> readBookTitles() {
+        return bookService.getBooks();
+    }
+
+    @PostMapping("/users/{Id}/reading_lists/{Id2}/books")
+    public ResponseEntity<CreateBooksDTO> createBooksForReadingList(@PathVariable(value = "Id2") Integer id, @Validated @RequestBody CreateBooksDTO createBooksDTO) {
+        CreateBooksDTO booksDTO = bookService.createBooksToReadingList(createBooksDTO, id);
+        return ResponseEntity.ok(booksDTO);}
 
 
     @PostMapping("/genres/{Id}/books")
