@@ -15,7 +15,7 @@ public class AuthorController {
     @Autowired
     AuthorService authorService;
 
-    @PostMapping("/author")
+    @PostMapping("/authors")
     public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
         Author newAuthor = authorService.createAuthor(author);
         return ResponseEntity.ok(newAuthor);
@@ -25,6 +25,11 @@ public class AuthorController {
     @GetMapping("/authors")
     public List<Author> readAuthors() {
         return authorService.getAuthors();
+    }
+
+    @GetMapping("/authors/{Id}")
+    public Author readAuthor(@PathVariable(value = "Id") Integer Id) {
+        return authorService.getAuthor(Id);
     }
 
 

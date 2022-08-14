@@ -2,6 +2,7 @@ package com.example.myspringproject.Controllers;
 
 
 import com.example.myspringproject.DTOs.CreateReadingListDTO;
+import com.example.myspringproject.DTOs.GetLibraryUsersDTO;
 import com.example.myspringproject.DTOs.GetReadingListDTO;
 import com.example.myspringproject.Models.ReadingList;
 import com.example.myspringproject.Services.ReadingListService;
@@ -14,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -39,7 +41,8 @@ public class ReadingListController {
     }
 
     @GetMapping("/users/{Id}/reading_lists/{Id2}")
-    public ReadingList getReadingList(@PathVariable(value = "Id2") Integer id2) {
-        return readingListService.getReadingList(id2);
+    public Optional <GetReadingListDTO> getReadingList(@PathVariable(value = "Id2") Integer id2) {
+        Optional<GetReadingListDTO> readingListDTO = readingListService.getReadingList(id2);
+        return readingListDTO;
     }
 }

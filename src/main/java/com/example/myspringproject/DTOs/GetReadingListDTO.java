@@ -13,6 +13,7 @@ import java.util.List;
 //@Setter
 public class GetReadingListDTO {
 
+    private int id;
     private String name;
     private List <String> book_titles;
 

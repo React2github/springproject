@@ -3,6 +3,7 @@ package com.example.myspringproject.Services;
 
 import com.example.myspringproject.DTOs.CreateBooksDTO;
 import com.example.myspringproject.DTOs.CreateGenresDTO;
+import com.example.myspringproject.DTOs.GetReadingListDTO;
 import com.example.myspringproject.Models.Book;
 import com.example.myspringproject.Models.Genre;
 import com.example.myspringproject.Models.ReadingList;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //We will be using the @Service annotation to indicate a service class. It’s a specialization of the @Component class.
 @Service
@@ -26,8 +28,6 @@ public class BookService {
     @Autowired
     GenreRepository genreRepository;
 
-    @Autowired
-    UsersRepository usersRepository;
 
     @Autowired
     ReadingListRepository readingListRepository;
@@ -47,8 +47,8 @@ public class BookService {
     }
 
 
-    public List<Book> getBooks() {
-        return bookRepository.findAll();
+    public List<CreateBooksDTO> getBooks() {
+        return bookRepository.findAll().stream().map(book -> mapper.map(book, CreateBooksDTO.class)).collect(Collectors.toList());
     }
 
     public Book getBook(Integer id) {

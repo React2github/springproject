@@ -2,6 +2,7 @@ package com.example.myspringproject.Services;
 
 
 import com.example.myspringproject.DTOs.CreateReadingListDTO;
+import com.example.myspringproject.DTOs.GetLibraryUsersDTO;
 import com.example.myspringproject.DTOs.GetReadingListDTO;
 import com.example.myspringproject.Models.ReadingList;
 import com.example.myspringproject.repository.ReadingListRepository;
@@ -9,8 +10,10 @@ import com.example.myspringproject.repository.UsersRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 //We will be using the @Service annotation to indicate a service class. It’s a specialization of the @Component class.
@@ -37,9 +40,8 @@ public class ReadingListService {
         return readingListRepository.findAll().stream().map(readingList -> mapper.map(readingList, GetReadingListDTO.class)).collect(Collectors.toList());
     }
 
-    public ReadingList getReadingList(Integer id) {
-        ReadingList readingListDTO = readingListRepository.getReferenceById(id);
-        return readingListDTO;
+    public Optional <GetReadingListDTO> getReadingList(Integer id) {
+        return readingListRepository.findById(id).map(readingList -> mapper.map(readingList, GetReadingListDTO.class));
     }
 
     public void deleteReadingList(Integer id) { readingListRepository.deleteById(id);

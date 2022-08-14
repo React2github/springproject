@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 public class CreateBooksDTO {
 
+    private int id;
     private String name;
     private int pages;
 

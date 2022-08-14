@@ -1,7 +1,6 @@
 package com.example.myspringproject.Controllers;
 
 import com.example.myspringproject.DTOs.CreateBooksDTO;
-import com.example.myspringproject.DTOs.CreateGenresDTO;
 import com.example.myspringproject.Models.Book;
 import com.example.myspringproject.Services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class BookController {
     BookService bookService;
 
     @GetMapping("/users/{Id}/reading_lists/{Id2}/books")
-    public List<Book> readBookTitles() {
+    public List<CreateBooksDTO> readBookTitles() {
         return bookService.getBooks();
     }
 
@@ -43,7 +42,7 @@ public class BookController {
 
 
     @GetMapping("/books")
-    public List<Book> readBooks() {
+    public List<CreateBooksDTO> readBooks() {
         return bookService.getBooks();
     }
 
