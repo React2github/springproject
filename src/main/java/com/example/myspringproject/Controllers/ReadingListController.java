@@ -31,9 +31,13 @@ public class ReadingListController {
     ReadingListRepository readingListRepository;
 
     @PostMapping("/users/{Id}/reading_lists")
-    public ResponseEntity<CreateReadingListDTO> createReadingList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody CreateReadingListDTO createReadingListDTO) {
-        CreateReadingListDTO readingListDTO = readingListService.createReadingList(createReadingListDTO, id);
-        return ResponseEntity.ok(readingListDTO);
+    public ResponseEntity<CreateReadingListDTO> createReadingList(@PathVariable(value = "Id") Integer id, @Validated @RequestBody CreateReadingListDTO createReadingListDTO) throws UserNotFoundException {
+        if (usersService.getUser(id).isEmpty()) {
+            throw new UserNotFoundException("There is no user with id: " + id);
+        } else {
+            CreateReadingListDTO readingListDTO = readingListService.createReadingList(createReadingListDTO, id);
+            return ResponseEntity.ok(readingListDTO);
+        }
     }
 
     @GetMapping("/users/{Id}/reading_lists")
