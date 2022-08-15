@@ -44,9 +44,9 @@ public class LibraryUsersController {
 
 
     @DeleteMapping("/users/{Id}")
-    public void deleteUser(@PathVariable(value = "Id") Integer id) throws NotFoundException {
+    public void deleteUser(@PathVariable(value = "Id") Integer id) throws UserNotFoundException {
         if (usersService.getUser(id).isEmpty()) {
-            throw new NotFoundException("There is no user with id: " + id);
+            throw new UserNotFoundException("There is no user with id: " + id);
         } else {
             usersService.deleteUser(id);
         }

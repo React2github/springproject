@@ -1,5 +1,6 @@
 package com.example.myspringproject.Controllers;
 
+import com.example.myspringproject.DTOs.CreateBooksDTO;
 import com.example.myspringproject.Models.Author;
 import com.example.myspringproject.Services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class AuthorController {
     }
 
     @GetMapping("/authors/{Id}")
-    public Author readAuthor(@PathVariable(value = "Id") Integer Id) {
-        return authorService.getAuthor(Id);
+    public Author readAuthor(@PathVariable(value = "Id") Integer Id) throws UserNotFoundException {
+            return authorService.getAuthor(Id);
     }
 
 

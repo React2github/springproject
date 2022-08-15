@@ -1,6 +1,7 @@
 package com.example.myspringproject.Services;
 
 
+import com.example.myspringproject.Controllers.UserNotFoundException;
 import com.example.myspringproject.Models.Author;
 import com.example.myspringproject.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,13 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
-    public Author getAuthor(Integer id) {
-        return authorRepository.findById(id).get();
+    public Author getAuthor(Integer id) throws UserNotFoundException {
+        if (authorRepository.findById(id).isEmpty()) {
+            throw new UserNotFoundException("There is no genre with id: " + id);
+        } else {
+            return authorRepository.findById(id).get();
+        }
+
     }
 
     public Author updateAuthor(Integer id, Author bookData) {

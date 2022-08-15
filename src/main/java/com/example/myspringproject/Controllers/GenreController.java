@@ -33,31 +33,18 @@ public class GenreController {
 
     @GetMapping("/genre/{Id}")
     public Genre readGenre(@PathVariable(value = "Id") Integer id) throws UserNotFoundException {
-        if (genreService.getGenre(id) == null) {
-            throw new UserNotFoundException("There is no genre with id: " + id);
-        } else {
             return genreService.getGenre(id);
-        }
     }
 
     @GetMapping("/genre/{Id}/books")
     public List<Book> readBooks(@PathVariable(value = "Id") Integer id) throws UserNotFoundException {
-        if (genreService.getGenre(id) == null) {
-            throw new UserNotFoundException("There is no genre with id: " + id);
-        } else {
             return genreService.getGenre(id).getBooks();
-        }
-
     }
 
 
     @PutMapping("/genre/{Id}")
     public Genre updateGenre(@PathVariable(value = "Id") Integer id, @RequestBody Genre genreData) throws UserNotFoundException {
-        if (genreService.getGenre(id) == null) {
-            throw new UserNotFoundException("There is no genre with id: " + id);
-        } else {
             return genreService.updateGenre(id, genreData);
-        }
     }
 
     @PostMapping("/genre")
@@ -65,7 +52,6 @@ public class GenreController {
         Genre newGenre =  genreService.createGenre(genre);
         return ResponseEntity.ok(newGenre);
     }
-
 
 
 

@@ -1,6 +1,7 @@
 package com.example.myspringproject.Services;
 
 
+import com.example.myspringproject.Controllers.UserNotFoundException;
 import com.example.myspringproject.DTOs.CreateBooksDTO;
 import com.example.myspringproject.DTOs.CreateGenresDTO;
 import com.example.myspringproject.DTOs.GetReadingListDTO;
@@ -51,20 +52,33 @@ public class BookService {
         return bookRepository.findAll().stream().map(book -> mapper.map(book, CreateBooksDTO.class)).collect(Collectors.toList());
     }
 
-    public Book getBook(Integer id) {
-        return bookRepository.findById(id).get();
+    public Book getBook(Integer id) throws UserNotFoundException {
+        if (bookRepository.findById(id).isEmpty()) {
+            throw new UserNotFoundException("There is no book with id: " + id);
+        } else {
+            return bookRepository.findById(id).get();
+        }
     }
 
-    public Book updateBook(Integer id, Book bookData) {
-        Book book = bookRepository.findById(id).get();
-        book.setName(bookData.getName());
-        book.setPages(bookData.getPages());
-        book.setPublished(bookData.getPublished());
-        return bookRepository.save(book);
+    public Book updateBook(Integer id, Book bookData) throws UserNotFoundException {
+        if (bookRepository.findById(id).isEmpty()) {
+            throw new UserNotFoundException("There is no book with id: " + id);
+        } else {
+            Book book = bookRepository.findById(id).get();
+            book.setName(bookData.getName());
+            book.setPages(bookData.getPages());
+            book.setPublished(bookData.getPublished());
+            return bookRepository.save(book);
+        }
     }
 
-    public void deleteBook(Integer id) {
-        bookRepository.deleteById(id);
+    public void deleteBook(Integer id) throws UserNotFoundException {
+        if (bookRepository.findById(id).isEmpty()) {
+            throw new UserNotFoundException("There is no book with id: " + id);
+        } else {
+            bookRepository.deleteById(id);
+        }
+
     }
 
     public CreateBooksDTO createBooksToReadingList(CreateBooksDTO createBooksDTO, Integer readingList_id) {

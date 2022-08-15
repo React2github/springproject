@@ -4,6 +4,7 @@ package com.example.myspringproject.Controllers;
 import com.example.myspringproject.DTOs.CreateReadingListDTO;
 import com.example.myspringproject.DTOs.GetLibraryUsersDTO;
 import com.example.myspringproject.DTOs.GetReadingListDTO;
+import com.example.myspringproject.ErrorHandling.NotFoundException;
 import com.example.myspringproject.Models.ReadingList;
 import com.example.myspringproject.Services.ReadingListService;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,14 @@ public class ReadingListController {
     }
 
     @GetMapping("/users/{Id}/reading_lists/{Id2}")
-    public Optional <GetReadingListDTO> getReadingList(@PathVariable(value = "Id2") Integer id2) {
-        Optional<GetReadingListDTO> readingListDTO = readingListService.getReadingList(id2);
+    public Optional <GetReadingListDTO> getReadingList(@PathVariable(value = "Id2") Integer id2) throws UserNotFoundException {
+        Optional<GetReadingListDTO> readingListDTO;
+        if (readingListService.getReadingList(id2).isEmpty()) {
+            throw new UserNotFoundException("There is no reading list with id: " + id2);
+        } else {
+                readingListDTO = readingListService.getReadingList(id2);
+            }
         return readingListDTO;
     }
+
 }
